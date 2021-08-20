@@ -1,0 +1,18 @@
+[package]
+name = "mkalias"
+version = "0.1.0"
+edition = "2018"
+
+repository = "https://github.com/reckenrode/mkalias"
+categories = ["command-line-utilities"]
+keywords = ["backups"]
+license = "GPL-3.0-only"
+readme = "README.md"
+
+authors = ["Randy Eckenrode <randy@largeandhighquality.com>"]
+description = "A simple command-line tool to create Finder aliases"
+
+[dependencies]
+anyhow = "1.0"
+core-foundation = "0.9"
+structopt = "0.3.22"
