@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage {
   pname = "mkalias";
   version = info.package.version;
 
-  nativeBuildInputs = [
+  buildInputs = [
     darwin.apple_sdk.frameworks.CoreFoundation
   ];
 
