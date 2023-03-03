@@ -11,8 +11,8 @@ ability.  As of macOS 13.2.1, the example script in that article still works.
 
 Clone the repository and do `cargo build --release`.  The binary will be found at
 `target/release/mkalias` once the build completes.  If you don’t have a Rust environment,
-install `cargo` with your package manager or use [rustup][3].  I don’t have a minimum-supported Rust
-version, so assume I’m using the latest.  There is also [Nix][4] flake in the repository that will
+install `cargo` with your package manager or use [rustup][3].  The MSRV is set to the version of
+Rust in the nixpkgs used by the flake.  There is also [Nix][4] flake in the repository that will
 set up a development environment.
 
 [1]: https://labs.sentinelone.com/bypassing-macos-tcc-user-privacy-protections-by-accident-and-design/
