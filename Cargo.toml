@@ -1,11 +1,12 @@
 [package]
 name = "mkalias"
-version = "0.1.0"
-edition = "2018"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.64"
 
 repository = "https://github.com/reckenrode/mkalias"
 categories = ["command-line-utilities"]
-keywords = ["backups"]
+keywords = ["alias", "darwin", "macos", "osx"]
 license = "GPL-3.0-only"
 readme = "README.md"
 
@@ -15,4 +16,4 @@ description = "A simple command-line tool to create Finder aliases"
 [dependencies]
 anyhow = "1.0"
 core-foundation = "0.9"
-structopt = "0.3.22"
+clap = { version = "4.0", features = ["derive"] }

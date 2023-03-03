@@ -2,19 +2,21 @@
 
 use std::path::PathBuf;
 
-use structopt::StructOpt;
+use clap::Parser;
 
 mod cfurl;
 
-#[derive(StructOpt)]
-#[structopt(about, author)]
+#[derive(Parser)]
+#[clap(about, author, version)]
 struct Options {
+    /// The target of the alias
     source: PathBuf,
+    /// The name of the alias to create
     destination: PathBuf,
 }
 
 fn main() {
-    let options = Options::from_args();
+    let options = Options::parse();
     let result = cfurl::create_alias(options.source, options.destination);
     if let Err(error) = result {
         eprintln!("ERROR: {}", error);

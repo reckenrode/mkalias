@@ -1,7 +1,6 @@
 { lib
-, stdenv
-, darwin
 , rustPlatform
+, CoreFoundation
 }:
 
 let
@@ -11,18 +10,16 @@ rustPlatform.buildRustPackage {
   pname = "mkalias";
   version = info.package.version;
 
-  buildInputs = [
-    darwin.apple_sdk.frameworks.CoreFoundation
-  ];
+  buildInputs = [ CoreFoundation ];
 
   src = ./.;
 
-  cargoHash = "sha256-X8bmpzKct5mR1ybeBop3GtumcOWTjbc6pI/64kUgg70=";
+  cargoHash = "sha256-7oIs9/ghs9oMwcVph11yko+eZmQINwSA64lEvfYivpk=";
 
-  meta = let inherit (lib) licenses platforms; in {
+  meta = {
     description = info.package.description;
     homepage = info.package.repository;
-    license = licenses.gpl3Only;
-    platforms = platforms.darwin;
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.darwin;
   };
 }
