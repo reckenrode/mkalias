@@ -1,14 +1,21 @@
 `mkalias` is a very simple program to create Finder aliases without having to script Finder.  It is
-based on the [approach][1] described by Howard Oakley on his blog.
+based on the [approach][2] described by Howard Oakley on his blog.
+
+## Why Not Script Finder to Create Aliases?
+
+As described in [this article][1], granting a program the ability to script the Finder indirectly
+gives it the equivalent of Full Disk Access even if the program itself has not been granted that
+ability.  As of macOS 13.2.1, the example script in that article still works.
 
 # Building
 
 Clone the repository and do `cargo build --release`.  The binary will be found at
 `target/release/mkalias` once the build completes.  If you don’t have a Rust environment,
-install `cargo` with your package manager or use [rustup][2].  I don’t have a minimum-supported Rust
-version, so assume I’m using the latest.  There is also [Nix][3] flake in the repository that will
+install `cargo` with your package manager or use [rustup][3].  I don’t have a minimum-supported Rust
+version, so assume I’m using the latest.  There is also [Nix][4] flake in the repository that will
 set up a development environment.
 
-[1]: https://eclecticlight.co/2018/03/16/accessing-finder-aliases-in-your-own-code-a-walk-through-alismas-source/
-[2]: https://rustup.rs
-[3]: https://nixos.org
+[1]: https://labs.sentinelone.com/bypassing-macos-tcc-user-privacy-protections-by-accident-and-design/
+[2]: https://eclecticlight.co/2018/03/16/accessing-finder-aliases-in-your-own-code-a-walk-through-alismas-source/
+[3]: https://rustup.rs
+[4]: https://nixos.org
