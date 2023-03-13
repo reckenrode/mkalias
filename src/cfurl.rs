@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-use std::{error::Error, path::Path, ptr};
+use std::{path::Path, ptr};
 
 use anyhow::anyhow;
 use anyhow::Result;
