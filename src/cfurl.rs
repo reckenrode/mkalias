@@ -3,6 +3,7 @@
 use std::{error::Error, path::Path, ptr};
 
 use anyhow::anyhow;
+use anyhow::Result;
 use core_foundation::{
     base::{kCFAllocatorDefault, TCFType},
     error::CFError,
@@ -12,17 +13,14 @@ use core_foundation::{
     },
 };
 
-fn from_path(path: impl AsRef<Path>) -> Result<CFURL, Box<dyn Error>> {
+fn from_path(path: impl AsRef<Path>) -> Result<CFURL> {
     let path = path.as_ref();
     let is_directory = path.exists() && path.metadata()?.is_dir();
     CFURL::from_path(path, is_directory)
         .ok_or_else(|| anyhow!("{} was not valid UTF-8", path.to_string_lossy()).into())
 }
 
-pub fn create_alias(
-    source: impl AsRef<Path>,
-    destination: impl AsRef<Path>,
-) -> Result<(), Box<dyn Error>> {
+pub fn create_alias(source: impl AsRef<Path>, destination: impl AsRef<Path>) -> Result<()> {
     let creation_options = kCFURLBookmarkCreationSuitableForBookmarkFile;
     let source_url = from_path(source)?;
     let destination_url = from_path(&destination)?;
@@ -49,14 +47,13 @@ pub fn create_alias(
                     Err(anyhow!(
                         "Could not create alias to {}",
                         destination.as_ref().to_string_lossy()
-                    )
-                    .into())
+                    ))
                 }
             } else {
-                Err(CFError::wrap_under_create_rule(error).into())
+                Err(anyhow!("{}", CFError::wrap_under_create_rule(error)))
             }
         } else {
-            Err(CFError::wrap_under_create_rule(error).into())
+            Err(anyhow!("{}", CFError::wrap_under_create_rule(error)))
         }
     }
 }
