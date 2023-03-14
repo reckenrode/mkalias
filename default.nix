@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [ CoreFoundation ];
 
-  src = ./.;
+  src = builtins.path { name = "mkalias"; path = ./.; };
 
   cargoHash = "sha256-7oIs9/ghs9oMwcVph11yko+eZmQINwSA64lEvfYivpk=";
 
