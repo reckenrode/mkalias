@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage {
 
   src = builtins.path { name = "mkalias"; path = ./.; };
 
-  cargoHash = "sha256-7oIs9/ghs9oMwcVph11yko+eZmQINwSA64lEvfYivpk=";
+  cargoHash = "sha256-Esj2wyLITSK13bBnNIAca4i4fRDol4E8/aMC6MtFFT4=";
 
   meta = {
     description = info.package.description;
