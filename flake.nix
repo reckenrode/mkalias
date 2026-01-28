@@ -3,43 +3,63 @@
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       inherit (nixpkgs) lib;
 
-      forAllSystems = lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" ];
-    in {
-      devShells = forAllSystems (system:
+      forAllSystems = lib.genAttrs [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+    in
+    {
+      devShells = forAllSystems (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-        in {
+        in
+        {
           default = pkgs.mkShell {
             inherit (self.packages.${system}.default) buildInputs nativeBuildInputs;
             packages = lib.attrValues {
-              inherit (pkgs) cargo clippy rustfmt rustc rust-analyzer;
+              inherit (pkgs)
+                cargo
+                clippy
+                rustfmt
+                rustc
+                rust-analyzer
+                ;
             };
           };
-        });
+        }
+      );
 
-      apps = forAllSystems (system:
+      apps = forAllSystems (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-        in {
+        in
+        {
           mkalias = {
             type = "app";
             program = "${lib.getBin self.packages.${system}.mkalias}/bin/mkalias";
           };
           default = self.apps.${system}.mkalias;
-        });
+        }
+      );
 
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-        in {
+        in
+        {
           mkalias = pkgs.callPackage ./default.nix {
             inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation;
           };
           default = self.packages.${system}.mkalias;
-        });
+        }
+      );
     };
 }

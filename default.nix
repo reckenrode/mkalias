@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, CoreFoundation
+{
+  lib,
+  rustPlatform,
+  CoreFoundation,
 }:
 
 let
@@ -12,7 +13,10 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [ CoreFoundation ];
 
-  src = builtins.path { name = "mkalias"; path = ./.; };
+  src = builtins.path {
+    name = "mkalias";
+    path = ./.;
+  };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
