@@ -1,31 +1,34 @@
 {
   lib,
   rustPlatform,
-  CoreFoundation,
 }:
 
 let
   info = lib.importTOML ./Cargo.toml;
 in
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mkalias";
   version = info.package.version;
-
-  buildInputs = [ CoreFoundation ];
 
   src = builtins.path {
     name = "mkalias";
     path = ./.;
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      ;
+    hash = "sha256-DctFVkjZwATZasYMZvfdktorF2rPgmV5nF9rOmTiSK8=";
   };
 
   meta = {
+    mainProgram = "mkalias";
     description = info.package.description;
     homepage = info.package.repository;
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.darwin;
   };
-}
+})
